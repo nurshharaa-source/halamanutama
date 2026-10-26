@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bacalah Manjaku — Dunia Fantasi</title>
+<style>
+:root{--gold:#ffe19a;--ink:#fff9ed}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Georgia,"Trebuchet MS",serif}
+body{background:#1b1745;color:var(--ink)}
+button{font:inherit}
+.realm{position:relative;min-height:100vh;isolation:isolate;overflow:hidden;padding:24px clamp(12px,3vw,42px) 30px;background:linear-gradient(180deg,rgba(25,25,73,.26),rgba(29,18,64,.78)),url("fantasy-background.png") center center/cover fixed}
+.realm:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 22%,transparent 15%,rgba(25,16,57,.25) 80%)}
+.starfield{position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(#fff 1px,transparent 1.6px),radial-gradient(#ffe8a2 1px,transparent 1.7px);background-size:73px 81px,109px 123px;opacity:.45;animation:twinkle 5s ease-in-out infinite alternate}
+.header{text-align:center;max-width:1000px;margin:0 auto 10px;position:relative}
+.brand{display:inline-block;padding:13px clamp(18px,4vw,42px);border:2px solid var(--gold);border-radius:24px;background:linear-gradient(135deg,rgba(31,20,70,.94),rgba(74,42,107,.88));box-shadow:0 0 0 5px #ffe19a22,0 12px 32px #160e38aa}
+h1{font-size:clamp(28px,5vw,56px);line-height:1.05;margin:0;color:#ffe6a4;text-shadow:0 3px #7a345f,0 0 20px #ffdfb0}
+.subtitle{margin:8px 0 0;font-size:clamp(13px,2vw,18px)}
+.welcome{max-width:740px;margin:14px auto 0;font:clamp(14px,1.7vw,18px)/1.5 "Trebuchet MS",sans-serif;text-shadow:0 2px 6px #171035}
+.castle-glow{position:absolute;top:14%;left:50%;width:28vw;height:28vw;max-width:360px;max-height:360px;transform:translateX(-50%);border-radius:50%;background:#ffe6a455;filter:blur(48px);z-index:-1;pointer-events:none}
+.characters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(4px,1.5vw,16px);max-width:1080px;margin:22px auto 26px;align-items:end}
+.character{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:end;min-width:0;animation:bob 4s ease-in-out infinite;filter:drop-shadow(0 9px 8px #21123b88)}
+.character:nth-child(2){animation-delay:-1s}.character:nth-child(3){animation-delay:-2s}.character:nth-child(4){animation-delay:-3s}
+.character img{display:block;width:100%;max-width:220px;height:clamp(155px,27vw,300px);object-fit:contain;object-position:center bottom;transition:transform .25s}
+.character:hover img{transform:scale(1.05)}
+.character-name{position:relative;margin-top:-4px;z-index:1;text-align:center;min-width:0;width:100%;max-width:210px;padding:8px 5px;border:1px solid var(--gold);border-radius:14px;background:linear-gradient(135deg,#241642ed,#56357be8);box-shadow:0 4px 0 #9d6c70;color:#ffe8aa;font-weight:bold;font-size:clamp(11px,1.5vw,16px)}
+.character-role{display:block;font:11px/1.35 "Trebuchet MS",sans-serif;color:#fff8ed;font-weight:normal;margin-top:3px}
+.section-title{text-align:center;font-size:clamp(16px,2.2vw,23px);color:#fff0bd;text-shadow:0 2px 6px #1c123d;margin:24px 0 13px;letter-spacing:.04em}
+.portals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:1050px;margin:0 auto}
+.portal{min-height:130px;padding:15px 10px;border:2px solid var(--gold);border-radius:22px;color:#34204f;background:linear-gradient(145deg,#fff6e9f5,#e7c4eff2);box-shadow:0 7px 0 #80516c,0 13px 22px #160f38aa;cursor:pointer;transition:transform .2s,filter .2s}
+.portal:nth-child(2){background:linear-gradient(145deg,#effbfff5,#b4dff2f5)}.portal:nth-child(3){background:linear-gradient(145deg,#fff6e5f5,#f4c1a5f5)}
+.portal:hover,.nav-card:hover{transform:translateY(-4px);filter:brightness(1.05)}
+.portal:focus-visible,.nav-card:focus-visible{outline:3px solid #fff;outline-offset:3px}
+@media(hover:none){.portal:hover,.nav-card:hover{transform:none;filter:none}}
+.portal .symbol{display:block;font-size:34px;margin-bottom:6px}.portal strong{display:block;font-size:clamp(13px,1.6vw,19px)}.portal small{display:block;margin-top:6px;font:12px/1.4 "Trebuchet MS",sans-serif}
+.nav-wrap{max-width:1150px;margin:28px auto 0;padding:17px;border:1px solid #ffe19a9c;border-radius:24px;background:rgba(27,19,62,.72);backdrop-filter:blur(7px);box-shadow:0 10px 28px #150d35a0}
+.nav-title{text-align:center;margin:0 0 14px;color:#ffe8aa;font-size:clamp(15px,2vw,21px)}.nav-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.nav-card{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;text-decoration:none;min-height:76px;padding:10px 7px;border:1px solid #f7d88c;border-radius:14px;background:linear-gradient(160deg,#fff8e8,#efd5b4);color:#342252;cursor:pointer;transition:transform .2s;font:600 13px/1.3 "Trebuchet MS",sans-serif}.nav-card .ico{display:block;font-size:22px;margin-bottom:5px}
+.notice{display:none;max-width:700px;margin:15px auto 0;padding:12px 15px;border:1px solid var(--gold);border-radius:13px;background:#211846ed;text-align:center;font:14px/1.5 "Trebuchet MS",sans-serif}.notice.show{display:block}
+footer{text-align:center;margin:20px auto 0;font:12px "Trebuchet MS",sans-serif;text-shadow:0 2px 5px #171035}
+.music-control{position:fixed;right:16px;bottom:16px;z-index:20;display:flex;align-items:center;gap:8px;padding:10px 14px;border:2px solid var(--gold);border-radius:999px;background:linear-gradient(135deg,#241642f5,#56357bf5);color:#ffe8aa;box-shadow:0 5px 18px #100a2dbb;cursor:pointer;font:600 13px/1.2 "Trebuchet MS",sans-serif}
+.music-control:hover{filter:brightness(1.12);transform:translateY(-2px)}.music-control:focus-visible{outline:3px solid #fff;outline-offset:3px}.music-hint{max-width:260px;margin:8px auto 0;text-align:center;font:12px/1.5 "Trebuchet MS",sans-serif;color:#fff5d9}
+
+/* Kesan magis tambahan: cahaya lembut dan kilauan bintang */
+.realm::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.48;background:linear-gradient(115deg,transparent 0%,rgba(255,244,190,.06) 42%,rgba(255,255,255,.15) 50%,rgba(255,226,160,.05) 58%,transparent 100%);background-size:220% 100%;animation:magicSweep 18s ease-in-out infinite}
+.realm>*{position:relative;z-index:1}
+.realm>.starfield,.realm>.castle-glow{position:absolute;z-index:0}
+.magic-sparkles{position:absolute!important;inset:0;z-index:1!important;pointer-events:none;overflow:hidden}
+.magic-sparkles span{position:absolute;display:block;width:5px;height:5px;border-radius:50%;background:#fff6c9;box-shadow:0 0 7px 2px #ffe9a8,0 0 16px 4px #d9c7ff;opacity:0;animation:sparkleFloat var(--duration,7s) ease-in-out infinite;animation-delay:var(--delay,0s)}
+.portal{position:relative;overflow:hidden}
+.portal::after{content:"";position:absolute;inset:-45%;pointer-events:none;background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.5) 50%,transparent 58%);transform:translateX(-70%) rotate(8deg);transition:transform .8s ease}
+.portal:hover::after,.portal:focus-visible::after{transform:translateX(70%) rotate(8deg)}
+.brand{animation:brandGlow 5s ease-in-out infinite}
+@keyframes magicSweep{0%,100%{background-position:160% 0;opacity:.16}50%{background-position:-60% 0;opacity:.55}}
+@keyframes sparkleFloat{0%,100%{transform:translate3d(0,12px,0) scale(.4);opacity:0}20%,70%{opacity:.9}50%{transform:translate3d(12px,-35px,0) scale(1.25);opacity:.8}}
+@keyframes brandGlow{0%,100%{box-shadow:0 0 0 5px #ffe19a22,0 12px 32px #160e38aa}50%{box-shadow:0 0 0 7px #ffe19a35,0 0 28px #ffe19a55,0 12px 32px #160e38aa}}
+@media(prefers-reduced-motion:reduce){.realm::after,.magic-sparkles span,.brand{animation:none!important}}
+
+@media(max-width:680px){.music-control{right:10px;bottom:10px;padding:9px 12px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){.music-control{transition:none}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}@keyframes twinkle{from{opacity:.25}to{opacity:.62}}
+@media(min-width:681px) and (max-width:1024px){.realm{padding:20px 18px 28px}.characters{max-width:900px;gap:8px}.character img{height:clamp(170px,25vw,250px)}.portals{gap:11px}.nav-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.nav-wrap{padding:14px}}
+@media(max-width:680px){.realm{padding:15px 10px 22px;background-attachment:scroll}.characters{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 8px;margin:18px auto 22px;max-width:480px}.character img{height:clamp(150px,45vw,220px)}.character-name{font-size:clamp(11px,3vw,14px);padding:8px 5px}.character-role{font-size:10px}.portals{grid-template-columns:1fr;gap:10px;max-width:480px}.portal{min-height:95px;padding:10px}.portal .symbol{font-size:28px}.nav-wrap{padding:10px;margin-top:20px}.nav-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.nav-card{min-height:76px;font-size:12px;padding:9px 5px}}
+@media(max-width:360px){h1{font-size:26px}.brand{padding:11px 14px}.nav-grid{grid-template-columns:1fr}.character img{height:145px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="realm">
+<div class="starfield" aria-hidden="true"></div><div class="castle-glow" aria-hidden="true"></div><div class="magic-sparkles" id="magicSparkles" aria-hidden="true"></div>
+<header class="header"><div class="brand"><h1>✦ Bacalah Manjaku ✦</h1><div class="subtitle">Dunia Peribahasa, Jendela Ilmu</div></div><p class="welcome">Selamat datang ke alam ilmu! Teroka, baca, faham dan amalkan peribahasa dalam kehidupan seharian.</p></header>
+<section class="characters" aria-label="Watak panduan">
+<div class="character"><img src="Puteri_Purut.png" alt="Puteri Purut"><div class="character-name">Puteri Purut<span class="character-role">Pakar Membaca</span></div></div>
+<div class="character"><img src="Puteri_Manis.png" alt="Puteri Manis"><div class="character-name">Puteri Manis<span class="character-role">Nilai Pentaksiran</span></div></div>
+<div class="character"><img src="Puteri_Nipis.png" alt="Puteri Nipis"><div class="character-name">Puteri Nipis<span class="character-role">Semak Bacaan</span></div></div>
+<div class="character"><img src="Hang_Kasturi.png" alt="Hang Kasturi"><div class="character-name">Hang Kasturi<span class="character-role">Pengawal</span></div></div>
+</section>
+<h2 class="section-title">✧ PILIH PENGEMBARAAN ANDA ✧</h2>
+<section class="portals">
+<button class="portal" data-key="library"><span class="symbol">📚✨</span><strong>PERPUSTAKAAN PERIBAHASA</strong><small>Baca, dengar dan fahami peribahasa</small></button>
+<button class="portal" data-key="activity"><span class="symbol">🗝️🎮</span><strong>AKTIVITI</strong><small>Belajar sambil meneroka</small></button>
+<button class="portal" data-key="assessment"><span class="symbol">📜⭐</span><strong>PENTAKSIRAN</strong><small>Semak kefahaman dan bacaan</small></button>
+</section>
+<section class="nav-wrap"><h2 class="nav-title">✦ TEROKAI DOKUMENTASI PROJEK ✦</h2><nav class="nav-grid">
+<button class="nav-card" data-key="intro"><span class="ico">📜</span>Pengenalan Projek</button><button class="nav-card" data-key="problem"><span class="ico">🔍</span>Pernyataan Masalah</button><button class="nav-card" data-key="objectives"><span class="ico">🎯</span>Objektif Projek</button><button class="nav-card" data-key="standards"><span class="ico">📖</span>SK dan SP</button><button class="nav-card" data-key="users"><span class="ico">👥</span>Sasaran Pengguna</button><button class="nav-card" data-key="design"><span class="ico">💎</span>Konsep dan Reka Bentuk Inovasi</button><button class="nav-card" data-key="addie"><span class="ico">⚙️</span>Model ADDIE</button><button class="nav-card" data-key="trialogical"><span class="ico">🔗</span>Pembelajaran Trialogikal</button><button class="nav-card" data-key="evaluation"><span class="ico">🧪</span>Pengujian, Penilaian dan Penambahbaikan</button><button class="nav-card" data-key="impact"><span class="ico">🌟</span>Impak dan Potensi Produk</button><button class="nav-card" data-key="guide"><span class="ico">📘</span>Produk dan Panduan Penggunaan</button><button class="nav-card" data-key="reflection"><span class="ico">📝</span>Refleksi dan Dokumentasi</button>
+</nav></section>
+<section class="nav-wrap" aria-label="Subhalaman dokumentasi">
+<h2 class="nav-title">✦ SUBHALAMAN DOKUMENTASI ✦</h2>
+<nav class="nav-grid">
+<a class="nav-card" data-link="missionAccess" href="https://sites.google.com/view/bacalahmanjaku/impak-dan-potensi-produk/akses-permainan"><span class="ico">🎮</span>Akses Permainan</a>
+<a class="nav-card" data-link="missionDisplay" href="https://sites.google.com/view/bacalahmanjaku/impak-dan-potensi-produk/paparan-dan-fungsi-setiap-misi"><span class="ico">🧭</span>Paparan dan Fungsi Setiap Misi</a>
+<a class="nav-card" data-link="usageSteps" href="https://sites.google.com/view/bacalahmanjaku/impak-dan-potensi-produk/langkah-penggunaan"><span class="ico">📋</span>Langkah Penggunaan</a>
+<a class="nav-card" data-link="deviceNeeds" href="https://sites.google.com/view/bacalahmanjaku/impak-dan-potensi-produk/keperluan-peranti"><span class="ico">💻</span>Keperluan Peranti</a>
+<a class="nav-card" data-link="reflectionBuild" href="https://sites.google.com/view/bacalahmanjaku/refleksi-dan-dokumentasi/refleksi-pembangunan"><span class="ico">🛠️</span>Refleksi Pembangunan</a>
+<a class="nav-card" data-link="challenges" href="https://sites.google.com/view/bacalahmanjaku/refleksi-dan-dokumentasi/cabaran-dan-penyelesaian"><span class="ico">🧩</span>Cabaran dan Penyelesaian</a>
+<a class="nav-card" data-link="learning" href="https://sites.google.com/view/bacalahmanjaku/refleksi-dan-dokumentasi/pembelajaran-yang-diperoleh"><span class="ico">💡</span>Pembelajaran yang Diperoleh</a>
+<a class="nav-card" data-link="conclusion" href="https://sites.google.com/view/bacalahmanjaku/refleksi-dan-dokumentasi/kesimpulan"><span class="ico">🏁</span>Kesimpulan</a>
+<a class="nav-card" data-link="references" href="https://sites.google.com/view/bacalahmanjaku/refleksi-dan-dokumentasi/rujukan"><span class="ico">📚</span>Rujukan</a>
+<a class="nav-card" data-link="appendices" href="https://sites.google.com/view/bacalahmanjaku/refleksi-dan-dokumentasi/lampiran"><span class="ico">📎</span>Lampiran</a>
+</nav>
+</section>
+<div class="notice" id="notice" aria-live="polite"></div>
+<button class="music-control" id="musicToggle" type="button" aria-pressed="false" aria-label="Mainkan muzik latar"><span id="musicIcon" aria-hidden="true">♫</span><span id="musicLabel">Mainkan Muzik</span></button>
+<audio id="backgroundMusic" src="muzik-fantasi.mp3" loop preload="none"></audio>
+<p class="music-hint" id="musicHint">Muzik latar pilihan: letakkan fail <strong>muzik-fantasi.mp3</strong> dalam repositori GitHub yang sama.</p>
+<footer>Dunia Bacalah Manjaku · Portal pembelajaran dan dokumentasi inovasi</footer>
+</main>
+<script>
+/* Kilauan kecil dijana secara hiasan; tidak mengganggu pautan atau audio. */
+const sparkleLayer=document.getElementById("magicSparkles");
+if(sparkleLayer && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+  for(let i=0;i<24;i++){
+    const sparkle=document.createElement("span");
+    sparkle.style.left=(3+Math.random()*94)+"%";
+    sparkle.style.top=(8+Math.random()*84)+"%";
+    sparkle.style.setProperty("--duration",(5+Math.random()*7)+"s");
+    sparkle.style.setProperty("--delay",(-Math.random()*10)+"s");
+    if(i%4===0){sparkle.style.width="3px";sparkle.style.height="3px";}
+    sparkleLayer.appendChild(sparkle);
+  }
+}
+/* Masukkan URL sebenar dalam tanda petik untuk mengaktifkan setiap butang. */
+const destinations={
+library:"https://sites.google.com/view/bacalahmanjaku/bahan-bacaan",
+activity:"https://sites.google.com/view/bacalahmanjaku/aktiviti",
+assessment:"https://sites.google.com/view/bacalahmanjaku/pentaksiran",
+intro:"https://sites.google.com/view/bacalahmanjaku/pengenalan",
+problem:"https://sites.google.com/view/bacalahmanjaku/pengenalan/pernyataan-masalah",
+objectives:"https://sites.google.com/view/bacalahmanjaku/pengenalan/objektif",
+standards:"https://sites.google.com/view/bacalahmanjaku/pengenalan/sk-dan-sp",
+users:"https://sites.google.com/view/bacalahmanjaku/pengenalan/sasaran-pengguna",
+design:"https://sites.google.com/view/bacalahmanjaku/konsep-dan-reka-bentuk-inovasi",
+addie:"https://sites.google.com/view/bacalahmanjaku/model-addie",
+trialogical:"https://sites.google.com/view/bacalahmanjaku/pembelajaran-trialogikal",
+evaluation:"https://sites.google.com/view/bacalahmanjaku/pengujian-penilaian-dan-penambahbaikan",
+impact:"https://sites.google.com/view/bacalahmanjaku/impak-dan-potensi-produk",
+guide:"https://sites.google.com/view/bacalahmanjaku/impak-dan-potensi-produk/akses-permainan",
+reflection:"https://sites.google.com/view/bacalahmanjaku/refleksi-dan-dokumentasi"
+};
+const labels={library:"Perpustakaan Peribahasa",activity:"Aktiviti",assessment:"Pentaksiran",intro:"Pengenalan Projek",problem:"Pernyataan Masalah",objectives:"Objektif Projek",standards:"SK dan SP",users:"Sasaran Pengguna",design:"Konsep dan Reka Bentuk Inovasi",addie:"Model ADDIE",trialogical:"Pembelajaran Trialogikal",evaluation:"Pengujian, Penilaian dan Penambahbaikan",impact:"Impak dan Potensi Produk",guide:"Produk dan Panduan Penggunaan",reflection:"Refleksi dan Dokumentasi"};
+document.querySelectorAll("[data-key]").forEach(btn=>btn.addEventListener("click",()=>{const key=btn.dataset.key,url=destinations[key];if(url){window.open(url,"_blank","noopener");return;}const note=document.getElementById("notice");note.textContent="Butang “"+labels[key]+"” telah disediakan. Pautan destinasi perlu dimasukkan selepas URL halaman Google Sites atau produk dikenal pasti.";note.classList.add("show");}));
+const music=document.getElementById("backgroundMusic");
+const musicToggle=document.getElementById("musicToggle");
+const musicLabel=document.getElementById("musicLabel");
+const musicIcon=document.getElementById("musicIcon");
+const musicHint=document.getElementById("musicHint");
+musicToggle.addEventListener("click",async()=>{
+  if(music.paused){
+    try{await music.play();musicLabel.textContent="Hentikan Muzik";musicIcon.textContent="Ⅱ";musicToggle.setAttribute("aria-pressed","true");musicToggle.setAttribute("aria-label","Hentikan muzik latar");musicHint.textContent="Muzik latar sedang dimainkan.";}
+    catch(error){musicHint.textContent="Fail muzik belum tersedia. Muat naik fail bernama muzik-fantasi.mp3 ke repositori GitHub yang sama.";}
+  }else{music.pause();musicLabel.textContent="Mainkan Muzik";musicIcon.textContent="♫";musicToggle.setAttribute("aria-pressed","false");musicToggle.setAttribute("aria-label","Mainkan muzik latar");musicHint.textContent="Muzik latar dihentikan.";}
+});
+music.addEventListener("error",()=>{musicHint.textContent="Fail muzik belum tersedia. Muat naik fail bernama muzik-fantasi.mp3 ke repositori GitHub yang sama.";});
+</script>
+</body>
+</html>
